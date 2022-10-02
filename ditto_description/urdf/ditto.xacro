@@ -1,0 +1,385 @@
+<?xml version="1.0" ?>
+<robot name="ditto" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ditto_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find ditto_description)/urdf/ditto.trans" />
+<xacro:include filename="$(find ditto_description)/urdf/ditto.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.02224981133923585 -0.019196508874661813 0.0553533218743097" rpy="0 0 0"/>
+    <mass value="37.14092018645439"/>
+    <inertia ixx="0.138389" iyy="0.281836" izz="0.379278" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rw2__1">
+  <inertial>
+    <origin xyz="-1.886607639972615e-07 -0.02499950887466182 0.0" rpy="0 0 0"/>
+    <mass value="0.3532303882212242"/>
+    <inertia ixx="0.000284" iyy="0.000429" izz="0.000284" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.07775 0.126697 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/rw2__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.07775 0.126697 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/rw2__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rw1__1">
+  <inertial>
+    <origin xyz="-1.886607640111393e-07 -0.02499950887466254 1.1102230246251565e-16" rpy="0 0 0"/>
+    <mass value="0.3532303882212241"/>
+    <inertia ixx="0.000284" iyy="0.000429" izz="0.000284" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.12225 0.126697 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/rw1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.12225 0.126697 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/rw1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lw2_1">
+  <inertial>
+    <origin xyz="-1.886607642193061e-07 0.025000491125338448 -1.3877787807814457e-17" rpy="0 0 0"/>
+    <mass value="0.35323038822122366"/>
+    <inertia ixx="0.000284" iyy="0.000429" izz="0.000284" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.07775 -0.088303 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/lw2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.07775 -0.088303 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/lw2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lw1_1">
+  <inertial>
+    <origin xyz="-1.88660763900117e-07 0.02500049112533831 -3.469446951953614e-17" rpy="0 0 0"/>
+    <mass value="0.35323038822122393"/>
+    <inertia ixx="0.000284" iyy="0.000429" izz="0.000284" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.12225 -0.088303 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/lw1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.12225 -0.088303 -0.0525" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/lw1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="camera_1">
+  <inertial>
+    <origin xyz="0.014827096065687634 -1.8596689690363044e-06 -3.858900152439726e-05" rpy="0 0 0"/>
+    <mass value="0.024153880267308962"/>
+    <inertia ixx="4e-06" iyy="3e-06" izz="5e-06" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.188613 0.018837 -0.197534" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/camera_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.188613 0.018837 -0.197534" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/camera_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="antenna_1">
+  <inertial>
+    <origin xyz="-0.26981636648725377 0.06090723708749407 0.06992197091004265" rpy="0 0 0"/>
+    <mass value="0.026178748514489966"/>
+    <inertia ixx="6.3e-05" iyy="6.3e-05" izz="0.0" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.116004 -0.001736 -0.27" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/antenna_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.116004 -0.001736 -0.27" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/antenna_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="Storage_1">
+  <inertial>
+    <origin xyz="-0.0018381482135118275 -3.15672178443846e-06 0.057467056926413365" rpy="0 0 0"/>
+    <mass value="42.99598733176282"/>
+    <inertia ixx="0.369869" iyy="0.697383" izz="0.889436" ixy="2.9e-05" iyz="6e-06" ixz="0.002771"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.02225 0.019197 -0.105" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/Storage_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.02225 0.019197 -0.105" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/Storage_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="axel4_1">
+  <inertial>
+    <origin xyz="-0.11324418866076419 0.0410144911253382 -0.014999999999999972" rpy="0 0 0"/>
+    <mass value="0.057800396087530966"/>
+    <inertia ixx="3e-06" iyy="5e-06" izz="3e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.035494 0.167711 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel4_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.035494 0.167711 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel4_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="axel1_1">
+  <inertial>
+    <origin xyz="-0.27305218866076364 0.23280949112533816 -0.015000000000000041" rpy="0 0 0"/>
+    <mass value="0.05780039608753098"/>
+    <inertia ixx="3e-06" iyy="5e-06" izz="3e-06" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.395302 0.144506 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.395302 0.144506 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="axel3_1">
+  <inertial>
+    <origin xyz="-0.17305218866076416 0.19101449112533778 -0.014999999999999916" rpy="0 0 0"/>
+    <mass value="0.05780039608753098"/>
+    <inertia ixx="3e-06" iyy="5e-06" izz="3e-06" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.295302 0.317711 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.295302 0.317711 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="axel2_1">
+  <inertial>
+    <origin xyz="-0.21324418866076394 0.08280949112533822 -0.015000000000000013" rpy="0 0 0"/>
+    <mass value="0.057800396087530986"/>
+    <inertia ixx="3e-06" iyy="5e-06" izz="3e-06" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.135494 -0.005494 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.135494 -0.005494 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/axel2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="fixed_box_1">
+  <inertial>
+    <origin xyz="-0.12525418866076432 0.05441249112533836 -0.03500000000000003" rpy="0 0 0"/>
+    <mass value="2.5434000000000014"/>
+    <inertia ixx="0.006888" iyy="0.006888" izz="0.013734" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.072504 0.073609 -0.27" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/fixed_box_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.072504 0.073609 -0.27" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/fixed_box_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="openingbox_1">
+  <inertial>
+    <origin xyz="0.036126590511512235 0.05446170574966151 -0.007557861208932315" rpy="0 0 0"/>
+    <mass value="3.418870840246652"/>
+    <inertia ixx="0.009252" iyy="0.007675" izz="0.0168" ixy="-1e-05" iyz="-1e-06" ixz="1.2e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.067504 0.073609 -0.255" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/openingbox_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.067504 0.073609 -0.255" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ditto_description/meshes/openingbox_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="RW2" type="continuous">
+  <origin xyz="-0.113244 0.041014 -0.015" rpy="0 0 0"/>
+  <parent link="axel4_1"/>
+  <child link="rw2__1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="RW1" type="continuous">
+  <origin xyz="-0.173052 0.191014 -0.015" rpy="0 0 0"/>
+  <parent link="axel3_1"/>
+  <child link="rw1__1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="LW2" type="continuous">
+  <origin xyz="-0.213244 0.082809 -0.015" rpy="0 0 0"/>
+  <parent link="axel2_1"/>
+  <child link="lw2_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="LW1" type="continuous">
+  <origin xyz="-0.273052 0.232809 -0.015" rpy="0 0 0"/>
+  <parent link="axel1_1"/>
+  <child link="lw1_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="Camera_link" type="fixed">
+  <origin xyz="0.166363 0.00036 0.092534" rpy="0 0 0"/>
+  <parent link="Storage_1"/>
+  <child link="camera_1"/>
+</joint>
+
+<joint name="antenna" type="fixed">
+  <origin xyz="0.093754 0.020933 0.165" rpy="0 0 0"/>
+  <parent link="Storage_1"/>
+  <child link="antenna_1"/>
+</joint>
+
+<joint name="storage_link" type="fixed">
+  <origin xyz="0.02225 -0.019197 0.105" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="Storage_1"/>
+</joint>
+
+<joint name="shaft1" type="fixed">
+  <origin xyz="0.035494 -0.167711 0.0675" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="axel4_1"/>
+</joint>
+
+<joint name="shaft4" type="fixed">
+  <origin xyz="0.395302 -0.144506 0.0675" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="axel1_1"/>
+</joint>
+
+<joint name="shaft2" type="fixed">
+  <origin xyz="0.295302 -0.317711 0.0675" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="axel3_1"/>
+</joint>
+
+<joint name="shaft3" type="fixed">
+  <origin xyz="0.135494 0.005494 0.0675" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="axel2_1"/>
+</joint>
+
+<joint name="fixed lid" type="fixed">
+  <origin xyz="0.050254 -0.054412 0.165" rpy="0 0 0"/>
+  <parent link="Storage_1"/>
+  <child link="fixed_box_1"/>
+</joint>
+
+<joint name="closing lid" type="prismatic">
+  <origin xyz="-0.005 0.0 -0.015" rpy="0 0 0"/>
+  <parent link="fixed_box_1"/>
+  <child link="openingbox_1"/>
+  <axis xyz="-1.0 0.0 -0.0"/>
+  <limit upper="0.16" lower="-0.0" effort="100" velocity="100"/>
+</joint>
+
+</robot>

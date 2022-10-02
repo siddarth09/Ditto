@@ -1,0 +1,9 @@
+<launch>
+
+<rosparam file="$(find ditto_description)/launch/controller.yaml" command="load"/>
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="ditto" args="RW2_position_controller RW1_position_controller LW2_position_controller LW1_position_controller closing lid_position_controller joint_state_controller "/>
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+  <remap from="/joint_states" to="/ditto/joint_states"/>
+</node>
+
+</launch>
