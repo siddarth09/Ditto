@@ -374,12 +374,12 @@
   <child link="fixed_box_1"/>
 </joint>
 
-<joint name="closing lid" type="prismatic">
+<joint name="closing_lid" type="prismatic">
   <origin xyz="-0.005 0.0 -0.015" rpy="0 0 0"/>
   <parent link="fixed_box_1"/>
   <child link="openingbox_1"/>
   <axis xyz="-1.0 0.0 -0.0"/>
-  <limit upper="0.16" lower="-0.0" effort="100" velocity="100"/>
+  <limit upper="0.16" lower="-0.0" effort="100" velocity="50"/>
 </joint>
 
 </robot>
