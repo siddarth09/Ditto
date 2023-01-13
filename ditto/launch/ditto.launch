@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find ditto)/launch/camera_depth_inertial.launch"/>
+    <include file="$(find ditto)/launch/depthimage_to_laserscan.launch"/>
+    <include file="$(find ditto)/launch/rosboard.launch"/>
+</launch>

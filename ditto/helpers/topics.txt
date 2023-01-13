@@ -1,0 +1,3 @@
+/stereo_inertial_publisher/color/image  -> image topic 
+/stereo_inertial_publisher/stereo/depth ->depth topic 
+/stereo_inertial_publisher/stereo/image

@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
     <!-- <args for urdf/> -->
     <arg name="mxId"                 default=""/>
@@ -9,7 +10,7 @@
     <arg name="mode"                 default="depth"            />
     <arg name="base_frame"           default="oak-d_frame"      />
     <arg name="parent_frame"         default="oak-d-base-frame" /> 
-    <arg name="imuMode"              default="1"                />   <!-- 0 -> COPY, 1 -> LINEAR_INTERPOLATE_GYRO, 2 -> LINEAR_INTERPOLATE_ACCEL -->
+    <arg name="imuMode"              default="2"                />   <!-- 0 -> COPY, 1 -> LINEAR_INTERPOLATE_GYRO, 2 -> LINEAR_INTERPOLATE_ACCEL -->
 
     <arg name="cam_pos_x"             default="0.0" /> <!-- Position respect to base frame (i.e. "base_link) -->
     <arg name="cam_pos_y"             default="0.0" /> <!-- Position respect to base frame (i.e. "base_link) -->
@@ -36,7 +37,7 @@
     <!-- <arg name="nnPath"                 default="" /> -->
 
      <!-- see https://docs.luxonis.com/projects/api/en/latest/components/nodes/stereo_depth/#currently-configurable-blocks for possible combination of optionf for higher fps-->
-    <arg name="stereo_fps"            default="10"  />
+    <arg name="stereo_fps"            default="15"  />
     <arg name="confidence"            default="200" />
     <arg name="LRchecktresh"          default="5"   />
     <arg name="monoResolution"        default="720p"/>
@@ -119,34 +120,33 @@
 
     <node pkg="nodelet" type="nodelet" name="depth_image_convertion_nodelet"
         args="load depth_image_proc/convert_metric nodelet_manager">
-        <remap from="image_raw" to="/oakd/stereo/depth"/>    
-        <remap from="image" to="/oakd/stereo/image"/>
+        <remap from="image_raw" to="/stereo_inertial_publisher/stereo/depth"/>    
+        <remap from="image" to="/stereo_inertial_publisher/stereo/image"/>
     </node>
-    <arg name="depth_aligned" value="true"/>
-    <arg name="enableRviz" value="false"/>
+
 
     <node if="$(eval arg('depth_aligned') == true)" pkg="nodelet" type="nodelet" name="depth_image_to_rgb_pointcloud"
         args="load depth_image_proc/point_cloud_xyzrgb nodelet_manager">
         <param name="queue_size"          value="10"/>
 
-        <remap from="rgb/camera_info" to="/oakd/color/camera_info"/>
-        <remap from="rgb/image_rect_color" to="/oakd/color/image"/>
-        <remap from="depth_registered/image_rect" to="/oakd/stereo/image"/>    
-        <remap from="depth_registered/points" to="/oakd/stereo/points"/>
+        <remap from="rgb/camera_info" to="/stereo_inertial_publisher/color/camera_info"/>
+        <remap from="rgb/image_rect_color" to="/stereo_inertial_publisher/color/image"/>
+        <remap from="depth_registered/image_rect" to="/stereo_inertial_publisher/stereo/image"/>    
+        <remap from="depth_registered/points" to="/stereo_inertial_publisher/stereo/points"/>
     </node>
 
     <node if="$(eval arg('depth_aligned') == false)" pkg="nodelet" type="nodelet" name="depth_image_to_pointcloud"
         args="load depth_image_proc/point_cloud_xyz nodelet_manager">
         <param name="queue_size"          value="10"/>
-        <remap from="camera_info" to="/oakd/stereo/camera_info"/>
-        <remap from="image_rect" to="/oakd/stereo/image"/>    
-        <remap from="points" to="/oakd/stereo/points"/>
+        <remap from="camera_info" to="/stereo_inertial_publisher/stereo/camera_info"/>
+        <remap from="image_rect" to="/stereo_inertial_publisher/stereo/image"/>    
+        <remap from="points" to="/stereo_inertial_publisher/stereo/points"/>
     </node>
 
 
     <node if="$(eval arg('enableMarkerPublish') == true)" type="markerPublisher.py" name="markerPublisher" pkg="depthai_examples">
-        <remap from="spatialDetections" to="/oakd/color/yolov4_Spatial_detections"/>
-        <remap from="spatialDetectionMarkers" to="/oakd/color/spatialDetectionMarkers"/>
+        <remap from="spatialDetections" to="/stereo_inertial_publisher/color/yolov4_Spatial_detections"/>
+        <remap from="spatialDetectionMarkers" to="/stereo_inertial_publisher/color/spatialDetectionMarkers"/>
     </node>
 
   <group if="$(eval arg('enableRviz') == true)">
