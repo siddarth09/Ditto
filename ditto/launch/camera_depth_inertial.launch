@@ -8,8 +8,8 @@
     <arg name="camera_model"         default="OAK-D"            /> <!-- 'zed' or 'zedm' -->
     <arg name="tf_prefix"            default="oak"              />
     <arg name="mode"                 default="depth"            />
-    <arg name="base_frame"           default="oak-d_frame"      />
-    <arg name="parent_frame"         default="oak-d-base-frame" /> 
+    <arg name="base_frame"           default="oak-d-frame"      />
+    <arg name="parent_frame"         default="base_footprint" /> 
     <arg name="imuMode"              default="2"                />   <!-- 0 -> COPY, 1 -> LINEAR_INTERPOLATE_GYRO, 2 -> LINEAR_INTERPOLATE_ACCEL -->
 
     <arg name="cam_pos_x"             default="0.0" /> <!-- Position respect to base frame (i.e. "base_link) -->

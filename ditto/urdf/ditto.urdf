@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot name="ditto">
+    <link name="base_footprint"/>
+    <link name="laser"/>
+    
+    <link name="imu0"/>
+
+    <joint name="imu0_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="imu0"/>
+        <origin rpy=" 1.571  0 1.571" xyz="0.12 0.0 0.35"/>
+    </joint>
+    
+     <joint name="laser_joint" type="fixed">
+		<parent link="base_footprint"/>
+		<child link="laser"/>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+
+</robot>

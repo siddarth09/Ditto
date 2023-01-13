@@ -1,0 +1,7 @@
+<launch>
+  <arg name="model" default="$(find ditto_description)/urdf/ditto.urdf"/>
+  <arg name="gui" default="false"/>
+  <arg name="rvizconfig" default="$(find ditto_description)/launch/urdf.rviz"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+</launch>
