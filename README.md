@@ -29,7 +29,7 @@ Simulation plays an important role in understanding many message types, working 
 
 > To use GAZEBO
 
-```
+```bash
 roslaunch ditto world.launch
 ```
 
