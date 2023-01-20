@@ -29,6 +29,21 @@ class App():
         self.master=master
         self.name = 'deliveryditto@gmail.com'
         self.password = 'gkbltrhhngtfsxrm'
+        self.firebaseConfig = {
+                                "apiKey": "AIzaSyBpi-oM5Yxpp-9d0PmBUkGDUz1Q_tQpHLM",
+                                "authDomain": "ditto-2b57b.firebaseapp.com",
+                                "databaseURL": "https://ditto-2b57b-default-rtdb.firebaseio.com",
+                                "projectId": "ditto-2b57b",
+                                "storageBucket": "ditto-2b57b.appspot.com",
+                                "messagingSenderId": "623176561332",
+                                "appId": "1:623176561332:web:365da031201202ffc69de1",
+                                "measurementId": "G-TTT6H08PF8"
+                                }
+        self.firebase = pyrebase.initialize_app(self.firebaseConfig)
+
+
+
+
         self.image = cv2.imread('3.png')
         self.image = Image.fromarray(self.image)
         self.image = ImageTk.PhotoImage(self.image)
@@ -106,6 +121,9 @@ class App():
        
         print(destiny)
         print(otp)
+        db = self.firebase.database()
+        db.child("OTP").set(otp)
+        db.child("Destination").set(destiny)
         message="DITTO WLL BE ARRIVING AT {}".format(destiny)
         messagebox.showinfo(title='PACKAGE GETTING DELIVERED', message=message)
         self.mail(to_email=email)

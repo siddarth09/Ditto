@@ -7,6 +7,7 @@ import cv2
 import depthai as dai
 import numpy as np
 from time import sleep
+import pyrebase
 
 class OAKD():
     def __init__(self):
@@ -39,7 +40,20 @@ class QR():
         
         self.passcode=0
         self.qrdata=0
-        rospy.Subscriber('/otp',Int32,callback=self.get_data)
+        #rospy.Subscriber('/otp',Int32,callback=self.get_data)
+        self.firebaseConfig = {
+                                "apiKey": "AIzaSyBpi-oM5Yxpp-9d0PmBUkGDUz1Q_tQpHLM",
+                                "authDomain": "ditto-2b57b.firebaseapp.com",
+                                "databaseURL": "https://ditto-2b57b-default-rtdb.firebaseio.com",
+                                "projectId": "ditto-2b57b",
+                                "storageBucket": "ditto-2b57b.appspot.com",
+                                "messagingSenderId": "623176561332",
+                                "appId": "1:623176561332:web:365da031201202ffc69de1",
+                                "measurementId": "G-TTT6H08PF8"
+                                }
+        self.firebase = pyrebase.initialize_app(self.firebaseConfig)
+
+
 
     def get_camera(self):
         camera=OAKD()
@@ -77,13 +91,14 @@ class QR():
                 if cv2.waitKey(1) == ord("q"):
                     break           
 
-    def get_data(self,msg):
-        
-        self.passcode=msg.data
-
     def verify(self):
+        db=self.firebase.database()
+        self.passcode=db.child('OTP').get().val()
+        
         self.get_camera()
-        if (self.passcode == self.qrdata):
+        print(type(self.passcode))
+        print(type(self.qrdata))
+        if (self.passcode == int(self.qrdata)):
             rospy.loginfo(self.passcode)
             rospy.loginfo(self.qrdata)
             rospy.loginfo("SUCCESS")
