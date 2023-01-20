@@ -114,13 +114,11 @@ class App():
         """
         otp=random.randint(1000,9999)
         destiny=location.get()
-        final_info={"OTP":otp,
-                    "destination":destiny}
+       
         qr=pyqrcode.create(otp,version=10)
         qr.png('otp.png',scale=5)
        
-        print(destiny)
-        print(otp)
+       
         db = self.firebase.database()
         db.child("OTP").set(otp)
         db.child("Destination").set(destiny)

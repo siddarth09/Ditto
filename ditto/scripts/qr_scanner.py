@@ -96,8 +96,7 @@ class QR():
         self.passcode=db.child('OTP').get().val()
         
         self.get_camera()
-        print(type(self.passcode))
-        print(type(self.qrdata))
+       
         if (self.passcode == int(self.qrdata)):
             rospy.loginfo(self.passcode)
             rospy.loginfo(self.qrdata)
