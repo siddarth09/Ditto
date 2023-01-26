@@ -118,18 +118,18 @@ class App():
         qr=pyqrcode.create(otp,version=10)
         qr.png('otp.png',scale=5)
        
-       
-        db = self.firebase.database()
-        db.child("OTP").set(otp)
-        db.child("Destination").set(destiny)
-        message="DITTO WLL BE ARRIVING AT {}".format(destiny)
-        messagebox.showinfo(title='PACKAGE GETTING DELIVERED', message=message)
-        self.mail(to_email=email)
-        messagebox.showinfo(title='ALERT', message="QR CODE IS SENT TO YOUR MAIL PLEASE SCAN INFRONT OF CAMERA")
-        
+        if (destiny.upper()=="MUNCHIES" or destiny.upper()=="SET"):
+            db = self.firebase.database()
+            db.child("OTP").set(otp)
+            db.child("Destination").set(destiny)
+            message="DITTO WLL BE ARRIVING AT {}".format(destiny)
+            messagebox.showinfo(title='PACKAGE GETTING DELIVERED', message=message)
+            self.mail(to_email=email)
+            messagebox.showinfo(title='ALERT', message="QR CODE IS SENT TO YOUR MAIL PLEASE SCAN INFRONT OF CAMERA")
+            
     
     def location(self):
-        message="Currently supports SET BLOCK TO MUNCHIES"
+        message="Currently supports SET TO MUNCHIES"
         messagebox.showinfo(title='support', message=message)
         self.description.place(relx=0.50,rely=0.10,anchor=CENTER)
         self.destination.place(relx=0.16,rely=0.85,anchor=CENTER)
@@ -161,9 +161,6 @@ class App():
             encoders.encode_base64(qr_code_attachment)
             qr_code_attachment.add_header('Content-Disposition', "attachment; filename= %s" % qr_code_file)
             msg.attach(qr_code_attachment)
-
-        
-        
 
         msg_str = msg.as_string()
 
