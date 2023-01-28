@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+    <param name="frame_id" value="camera_depth_frame" />
+    <param name="resolution" value="0.05" />
+    <param name="sensor_model" value="DepthCamera"/>
+    <param name="max_range" value="10.0" />
+    <remap from="cloud_in" to="/stereo_inertial_publisher/stereo/depth" />
+  </node>
+</launch>
+
