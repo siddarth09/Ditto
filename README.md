@@ -1,5 +1,7 @@
-# Ditto
-Ditto-the delivery robot
+# Ditto : the delivery robot
+![3](https://user-images.githubusercontent.com/60263608/215241634-c957b7bc-4646-467a-811b-57b1627128ac.png)
+
+
 
 We Jain University robotics team, are currently developing autonomous delivery robot for our college, this project uses many open source softwares and a few softwares buillt inhouse, we aim to make this project open source so many can use our package to develop their own autonomous delivery robots.
 
