@@ -1,3 +1,5 @@
 /stereo_inertial_publisher/color/image  -> image topic 
 /stereo_inertial_publisher/stereo/depth ->depth topic 
 /stereo_inertial_publisher/stereo/image
+/stereo_inertial_publisher/stereo/points -> point cloud
+/stereo_inertial_publisher/imu

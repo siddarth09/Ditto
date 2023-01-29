@@ -5,7 +5,7 @@
 
     <remap from="image"       to="/stereo_inertial_publisher/stereo/depth"/> <!-- change here for your camera depth topic name. Default: "/camera/depth/image_raw" -->
 
-    <remap from="camera_info" to="/camera/color/camera_info"/> 
+    <remap from="camera_info" to="/stereo_inertial_publisher/color/camera_info"/> 
     <!-- the remap for camera_info by default uses the same path as the one given to the image topic. Default: "<path_to_image_topic>/camera_info>" -->
 
     <!-- PARAMETERS: -->
@@ -14,7 +14,7 @@
     <param name="scan_time"       type="double" value="0.033"/> <!-- default:0.033, 30 FPS . Time between scans. -->
     <param name="range_min"       type="double" value="0.45"/> <!--default:0.45m. Ranges less than this are considered -Inf. -->
     <param name="range_max"       type="double" value="10.0"/> <!--default: 10m. Ranges less than this are considered +Inf. -->
-    <param name="output_frame_id" type="str"    value="laser"/> <!--default: camera_depth_frame. Frame id of the laser scan. -->
+    <param name="output_frame_id" type="str"    value="oak-d-frame"/> <!--default: camera_depth_frame. Frame id of the laser scan. -->
 	
   </node>
 	

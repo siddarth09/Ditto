@@ -149,9 +149,5 @@
         <remap from="spatialDetectionMarkers" to="/stereo_inertial_publisher/color/spatialDetectionMarkers"/>
     </node>
 
-  <group if="$(eval arg('enableRviz') == true)">
-    <node if="$(eval arg('depth_aligned') == true)" type="rviz" name="rviz" pkg="rviz" args="-d $(find depthai_examples)/rviz/stereoInertialDepthAlign.rviz" />
-    <node if="$(eval arg('depth_aligned') == false)" type="rviz" name="rviz" pkg="rviz" args="-d $(find depthai_examples)/rviz/stereoInertialROS1.rviz" />
-  </group>
-
+ 
 </launch>
