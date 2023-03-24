@@ -1,0 +1,15 @@
+digraph G {
+"oak-d-base-frame" -> "oak-d_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak-d_frame" -> "oak_imu_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak-d_frame" -> "oak_left_camera_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak_left_camera_frame" -> "oak_left_camera_optical_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak-d_frame" -> "oak_model_origin"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak-d_frame" -> "oak_rgb_camera_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak_rgb_camera_frame" -> "oak_rgb_camera_optical_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak-d_frame" -> "oak_right_camera_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+"oak_right_camera_frame" -> "oak_right_camera_optical_frame"[label="Broadcaster: /oak_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1673600329.937 sec old)\nBuffer length: 0.000 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1673600329.937"[ shape=plaintext ] ;
+ }->"oak-d-base-frame";
+}

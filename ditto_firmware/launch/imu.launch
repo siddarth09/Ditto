@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="ditto_firmware" type="imu_pub.py" name="IMU"/>
+</launch>

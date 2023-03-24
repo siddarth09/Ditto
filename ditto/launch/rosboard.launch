@@ -1,0 +1,3 @@
+<launch>
+    <node name="webview" type="rosboard_node" pkg="rosboard" output="screen"/>
+</launch>
