@@ -9,7 +9,7 @@
         pkg="robot_state_publisher"
         type="robot_state_publisher"/>
 
-    <include file="$(find ditto)/launch/camera_depth_inertial.launch"/>
+    <include file="$(find depthai_examples)/launch/rgb_stereo_node.launch"/>
     <include file="$(find ditto)/launch/depthimage_to_laserscan.launch"/>
     <include file="$(find ditto)/launch/rosboard.launch"/>
 </launch>

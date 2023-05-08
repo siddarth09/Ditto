@@ -1,37 +1,42 @@
-#!/usr/bin/python3
-'''
-GPS Interfacing with Raspberry Pi using Pyhton
-http://www.electronicwings.com
-'''
-import serial               #import serial pacakge
-from time import sleep
+#!/usr/bin/python
 
-def GPS_Info():
-    global NMEA_buff
-    global lat_in_degrees
-    global long_in_degrees
-    nmea_time = []
-    nmea_latitude = []
-    nmea_longitude = []
-    nmea_time = NMEA_buff[0]                    #extract time from GPGGA string
-    nmea_latitude = NMEA_buff[1]                #extract latitude from GPGGA string
-    nmea_longitude = NMEA_buff[3]               #extract longitude from GPGGA string
-    
-    print("NMEA Time: ", nmea_time,'\n')
-    print ("NMEA Latitude:", nmea_latitude,"NMEA Longitude:", nmea_longitude,'\n')
-    
-    lat = float(nmea_latitude)                  #convert string into float for calculation
-    longi = float(nmea_longitude)               #convertr string into float for cawddlculation
-    
-    lat_in_degrees = convert_to_degrees(lat)    #get latitude in degree decimal format
-    long_in_degrees = convert_to_degrees(longi) #get longitude in degree decimal format
-    
-#convert raw NMEA string into degree decimal format   
-def convert_to_degrees(raw_value):
-    decimal_value = raw_value/100.00
-    degrees = int(decimal_value)
-    mm_mmmm = (decimal_value - int(decimal_value))/0.6
-    position = degrees + mm_mmmm
-    position = "%.4f" %(position)
-    return position
-    
+import rospy
+from sensor_msgs.msg import NavSatFix
+import serial
+
+def main():
+    rospy.init_node('gps_publisher')
+    rate = rospy.Rate(10)  # 10 Hz
+
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+    gps_pub = rospy.Publisher('/fix', NavSatFix, queue_size=10)
+
+    while not rospy.is_shutdown():
+        line = ser.readline().decode('ascii')
+        if line.startswith('$GPGGA'):
+            data = line.split(',')
+            if data[2] and data[4] and data[9]:
+                lat = float(data[2][:2]) + float(data[2][2:]) / 60.0
+                if data[3] == 'S':
+                    lat = -lat
+                lon = float(data[4][:3]) + float(data[4][3:]) / 60.0
+                if data[5] == 'W':
+                    lon = -lon
+                alt = float(data[9])
+
+                fix_msg = NavSatFix()
+                fix_msg.header.stamp = rospy.Time.now()
+                fix_msg.header.frame_id = 'gps'
+                fix_msg.latitude = lat
+                fix_msg.longitude = lon
+                fix_msg.altitude = alt
+
+                gps_pub.publish(fix_msg)
+
+        rate.sleep()
+
+if __name__ == '__main__':
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass
