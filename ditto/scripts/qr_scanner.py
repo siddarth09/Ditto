@@ -10,16 +10,63 @@ import cv2
 import numpy as np
 from time import sleep
 import pyrebase
+import RPi.GPIO as GPIO
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
 
 from std_srvs.srv import SetBool, SetBoolResponse
 
+rightEn = 19       #   Red
+rightForward = 21   #   Yellow
+rightBackward = 26 
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(rightEn, GPIO.OUT)
+
+GPIO.setup(rightForward, GPIO.OUT)
+GPIO.setup(rightBackward, GPIO.OUT)
+pwmR = GPIO.PWM(rightEn, 100)
+pwmR.start(0)
+
+def forward(left_speed, right_speed):
+    #print('going forward')
+    lspeed = min(((left_speed/0.2)*100),100)
+    rspeed = min(((right_speed/0.2)*100),100)
+    #print(str(left_speed)+" "+str(right_speed))
+   
+    pwmR.ChangeDutyCycle(rspeed)
+   
+    GPIO.output(rightForward, GPIO.HIGH)
+    
+    GPIO.output(rightBackward, GPIO.LOW)
+
+def backward(left_speed, right_speed):
+    #print('going backward')
+    lspeed = min(((left_speed/0.2)*100),100)
+    rspeed = min(((right_speed/0.2)*100),100)
+    #print(str(left_speed)+" "+str(right_speed))
+   
+    pwmR.ChangeDutyCycle(rspeed)
+    GPIO.output(rightForward, GPIO.LOW)
+    GPIO.output(rightBackward, GPIO.HIGH)
+def stop():
+    #print('stopping')
+    
+    pwmR.ChangeDutyCycle(0)
+    GPIO.output(rightForward, GPIO.HIGH)
+    GPIO.output(rightBackward, GPIO.HIGH)
+    
 class QR():
     def __init__(self):
         # Initialize member variables
         self.passcode = 0
         self.qrdata = 0
         self.last_image = None
-        
+        self.name = 'deliveryditto@gmail.com'
+        self.password = 'gkbltrhhngtfsxrm'
         # Set up Firebase connection
         self.firebaseConfig = {
                                 "apiKey": "AIzaSyBpi-oM5Yxpp-9d0PmBUkGDUz1Q_tQpHLM",
@@ -45,8 +92,6 @@ class QR():
             self.last_image = self.bridge.compressed_imgmsg_to_cv2(msg, "bgr8")
         except CvBridgeError as e:
             rospy.logerr(e)
-            
-   
         
     def verify(self, req):
         # Get passcode from Firebase
@@ -77,9 +122,9 @@ class QR():
                         self.qrdata = data
                         
                     else:
-                        rospy.loginfo("NO QRCode found")
+                        rospy.loginfo_once("NO QRCode found")
                         self.qrdata = None
-                
+                rospy.loginfo(self.qrdata)
                 # Sleep for a short time before checking again
                 sleep(0.1)
             
@@ -88,11 +133,16 @@ class QR():
                     rospy.loginfo(self.passcode)
                     rospy.loginfo(self.qrdata)
                     rospy.loginfo("SUCCESS")
+                    forward(0.2,0.2)
+                    sleep(5)
+                    stop()
                     return SetBoolResponse(success=True)
+
                 else:
                     rospy.loginfo(self.passcode)
                     rospy.loginfo(self.qrdata)
-                    rospy.loginfo("FAILURE")
+                    rospy.logfatal("FAILURE")
+                    
                     return SetBoolResponse(success=False)
             else:
                 rospy.loginfo("No QR code detected.")

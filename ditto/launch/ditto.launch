@@ -10,6 +10,9 @@
         type="robot_state_publisher"/>
 
     <include file="$(find depthai_examples)/launch/rgb_stereo_node.launch"/>
+    <!-- <include file="$(find depthai_ros_driver)/launch/example_segmentation.launch"/> -->
     <include file="$(find ditto)/launch/depthimage_to_laserscan.launch"/>
     <include file="$(find ditto)/launch/rosboard.launch"/>
+    <node name="qr_scanner" type="qr_scanner.py" pkg="ditto" output="screen"/> 
+    <node name="base_drive" type="base_driver.py" pkg="ditto_firmware" output="screen"/>
 </launch>

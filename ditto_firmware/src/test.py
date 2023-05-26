@@ -5,12 +5,13 @@ import RPi.GPIO as GPIO
 import time
 from math import pi
 
-leftPWM = 12
-rightPWM = 13
+leftEn = 13         #   Purple
+rightEn = 12        #   Red
 
-leftDir = 16
-rightDir = 6
-
+leftBackward = 5    #   Blue
+leftForward = 6     #   Green
+rightForward = 16   #   Yellow
+rightBackward = 20  #   Orange
 
 wheel_separation = 0.40
 wheel_diameter = 0.065
@@ -20,69 +21,72 @@ circumference_of_wheel = 2 * pi * wheel_radius
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-GPIO.setup(leftPWM,GPIO.OUT)
-GPIO.setup(leftDir,GPIO.OUT)
-GPIO.setup(rightPWM,GPIO.OUT)
-GPIO.setup(rightDir,GPIO.OUT)
+GPIO.setup(leftEn, GPIO.OUT)
+GPIO.setup(rightEn, GPIO.OUT)
+GPIO.setup(leftForward, GPIO.OUT)
+GPIO.setup(leftBackward, GPIO.OUT)
+GPIO.setup(rightForward, GPIO.OUT)
+GPIO.setup(rightBackward, GPIO.OUT)
 
-pwmL = GPIO.PWM(leftPWM, 100)
+pwmL = GPIO.PWM(leftEn, 100)
 pwmL.start(0)
-pwmR = GPIO.PWM(rightPWM, 100)
+pwmR = GPIO.PWM(rightEn, 100)
 pwmR.start(0)
 
 def stop():
     #print('stopping')
     pwmL.ChangeDutyCycle(0)
-    GPIO.output(leftPWM, GPIO.HIGH)
-    GPIO.output(leftDir, GPIO.HIGH)
+    GPIO.output(leftForward, GPIO.HIGH)
+    GPIO.output(leftBackward, GPIO.HIGH)
     pwmR.ChangeDutyCycle(0)
-    GPIO.output(rightPWM, GPIO.HIGH)
-    GPIO.output(rightDir, GPIO.HIGH)
+    GPIO.output(rightForward, GPIO.HIGH)
+    GPIO.output(rightBackward, GPIO.HIGH)
 
+def forward(left_speed, right_speed):
+    #print('going forward')
+    lspeed = min(((left_speed/0.2)*100),100)
+    rspeed = min(((right_speed/0.2)*100),100)
+    #print(str(left_speed)+" "+str(right_speed))
+    pwmL.ChangeDutyCycle(lspeed)
+    pwmR.ChangeDutyCycle(rspeed)
+    GPIO.output(leftForward, GPIO.HIGH)
+    GPIO.output(rightForward, GPIO.HIGH)
+    GPIO.output(leftBackward, GPIO.LOW)
+    GPIO.output(rightBackward, GPIO.LOW)
 
-def forward(left_speed,right_speed):
+def backward(left_speed, right_speed):
+    #print('going backward')
     lspeed = min(((left_speed/0.2)*100),100)
     rspeed = min(((right_speed/0.2)*100),100)
     #print(str(left_speed)+" "+str(right_speed))
     pwmL.ChangeDutyCycle(lspeed)
     pwmR.ChangeDutyCycle(rspeed)
-    GPIO.output(leftPWM, GPIO.HIGH)
-    GPIO.output(leftDir, GPIO.LOW)
-    GPIO.output(rightPWM, GPIO.HIGH)
-    GPIO.output(rightDir, GPIO.HIGH)
-    
-def backward(left_speed,right_speed):
-    lspeed = min(((left_speed/0.2)*100),100)
-    rspeed = min(((right_speed/0.2)*100),100)
-    #print(str(left_speed)+" "+str(right_speed))
-    pwmL.ChangeDutyCycle(lspeed)
-    pwmR.ChangeDutyCycle(rspeed)
-    GPIO.output(leftPWM, GPIO.HIGH)
-    GPIO.output(leftDir, GPIO.HIGH)
-    GPIO.output(rightPWM, GPIO.LOW)
-    GPIO.output(rightDir, GPIO.LOW)
+    GPIO.output(leftForward, GPIO.LOW)
+    GPIO.output(rightForward, GPIO.LOW)
+    GPIO.output(leftBackward, GPIO.HIGH)
+    GPIO.output(rightBackward, GPIO.HIGH)
 
-def left(left_speed,right_speed):
+def left(left_speed, right_speed):
+    #print('turning left')
     lspeed = min(((left_speed/0.2)*100),100)
     rspeed = min(((right_speed/0.2)*100),100)
-    #print(str(left_speed)+" "+str(right_speed))
     pwmL.ChangeDutyCycle(lspeed)
     pwmR.ChangeDutyCycle(rspeed)
-    GPIO.output(leftPWM, GPIO.HIGH)
-    GPIO.output(leftDir, GPIO.LOW)
-    GPIO.output(rightPWM, GPIO.LOW)
-    GPIO.output(rightDir, GPIO.LOW)
-    
-def right(left_speed,right_speed):
+    GPIO.output(leftForward, GPIO.LOW)
+    GPIO.output(leftBackward, GPIO.HIGH)
+    GPIO.output(rightForward, GPIO.HIGH)
+    GPIO.output(rightBackward, GPIO.LOW)
+
+def right(left_speed, right_speed):
+    #print('turning right')
     lspeed = min(((left_speed/0.2)*100),100)
     rspeed = min(((right_speed/0.2)*100),100)
-    #print(str(left_speed)+" "+str(right_speed))
     pwmL.ChangeDutyCycle(lspeed)
     pwmR.ChangeDutyCycle(rspeed)
-    GPIO.output(leftPWM, GPIO.HIGH)
-    GPIO.output(leftDir, GPIO.HIGH)
-    GPIO.output(rightPWM, GPIO.HIGH)
-    GPIO.output(rightDir, GPIO.HIGH)
+    GPIO.output(leftForward, GPIO.HIGH)
+    GPIO.output(leftBackward, GPIO.LOW)
+    GPIO.output(rightForward, GPIO.LOW)
+    GPIO.output(rightBackward, GPIO.HIGH)
     
 def callback(data):
     
@@ -120,11 +124,14 @@ def callback(data):
         right(abs(left_vel), abs(right_vel))
     else:
         stop()
+
+    
+        
 def listener():
     rospy.init_node('motorcontrol', anonymous=False)
     rospy.Subscriber("/cmd_vel", Twist, callback)
     rospy.spin()
 
 if __name__== '__main__':
-    print('DITTO STARTED')
+    print('ARJUN INITIALIZED')
     listener()
